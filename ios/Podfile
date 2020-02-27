@@ -36,6 +36,8 @@ target 'WangyiyunApp' do
 
 
 
+  pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
+
   target 'WangyiyunAppTests' do
     inherit! :search_paths
     # Pods for testing
