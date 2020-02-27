@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 import Swiper from 'react-native-swiper';
+
+// 轮播图组件
 const BananerSwiper = props => {
+  // console.log(props.data);
+  //data父组件传递的数据
+  const data = props.data;
   return (
     <Container>
       <Swiper
@@ -38,19 +43,19 @@ const BananerSwiper = props => {
           />
         }>
         {data.map((item, index) => (
-          <Image
-            source={{
-              uri:
-                'http://p1.music.126.net/Dvy0xjQ2ERveH9BlaKVfCA==/109951164705134977.jpg',
-            }}
-          />
+          <TouchableOpacity key={index}>
+            <Image
+              source={{
+                uri: item.imageUrl,
+              }}
+            />
+          </TouchableOpacity>
         ))}
       </Swiper>
     </Container>
   );
 };
 export default BananerSwiper;
-const data = [1, 2, 3, 4, 5, 6, 7, 8];
 const Container = styled.View`
   margin: 20px 15px;
   width: 380px;
@@ -62,5 +67,5 @@ const Container = styled.View`
 const Image = styled.Image`
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 `;
