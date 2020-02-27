@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 const Header = props => {
   return (
@@ -8,11 +9,13 @@ const Header = props => {
         <Voice>
           <Icon name="ios-mic" color="red" size={30} />
         </Voice>
-        <Cover>
-          <Icon name="ios-search" color="#ccc" size={20} />
-          <Title>告白</Title>
-          <Title>最近很火</Title>
-        </Cover>
+        <TouchableOpacity onPress={() => props.navigation.push('Search')}>
+          <Cover>
+            <Icon name="ios-search" color="#ccc" size={20} />
+            <Title>告白</Title>
+            <Title>最近很火</Title>
+          </Cover>
+        </TouchableOpacity>
         <AvatarCover>
           <Avatar />
         </AvatarCover>
