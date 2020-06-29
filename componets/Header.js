@@ -1,7 +1,17 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+let ScreenW = Dimensions.get('window').width;
+let ScreenH = Dimensions.get('window').height;
+if (ScreenW > 414) {
+  ScreenW = ScreenW - 150;
+  ScreenH = 300;
+} else {
+  ScreenW = 280;
+  ScreenH = 150;
+}
 const Header = props => {
   return (
     <TitleBar>
@@ -36,7 +46,7 @@ const Container = styled.View`
   align-items: center;
 `;
 const Cover = styled.View`
-  width: 280px;
+  width: ${ScreenW};
   height: 35px;
   margin-left: 10px;
   border-radius: 20px;

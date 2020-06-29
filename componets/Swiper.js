@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Dimensions} from 'react-native';
 import styled from 'styled-components';
 import Swiper from 'react-native-swiper';
-
+let ScreenW = Dimensions.get('window').width;
+let ScreenH = Dimensions.get('window').height;
+if (ScreenW > 414) {
+  ScreenW = ScreenW - 30;
+  ScreenH = 300;
+} else {
+  ScreenW = 380;
+  ScreenH = 150;
+}
 // 轮播图组件
 const BananerSwiper = props => {
   // console.log(props.data);
@@ -58,9 +66,9 @@ const BananerSwiper = props => {
 export default BananerSwiper;
 const Container = styled.View`
   margin: 20px 15px;
-  width: 380px;
+  width: ${ScreenW};
   background: #ccc;
-  height: 150px;
+  height: ${ScreenH};
   border-radius: 10px;
   overflow: hidden;
 `;

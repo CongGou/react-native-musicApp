@@ -39,7 +39,7 @@ class SearchScreen extends Component {
   }
   KeyEnter = () => {
     let val = this.state.value;
-    fetch(`http://guohaucong.top:8800/search?keywords=${val}`)
+    fetch(`http://localhost:4000/search?keywords=${val}`)
       .then(res => res.json())
       .then(res => {
         if (res.result.songCount !== 0) {
@@ -51,7 +51,7 @@ class SearchScreen extends Component {
       });
   };
   render() {
-    console.log(this.props.HotSearchData[0]);
+    // console.log(this.props.HotSearchData[0]);
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <TitleBar>
@@ -125,7 +125,10 @@ class SearchScreen extends Component {
     );
   }
 }
-export default connect(mapStateToProps, mapDispatchProps)(SearchScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchProps,
+)(SearchScreen);
 
 const TitleBar = styled.View`
   width: 100%;

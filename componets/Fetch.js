@@ -1,4 +1,4 @@
-const API = 'http://guohaucong.top:8800';
+const API = 'http://localhost:4000';
 //获取轮播图bananer数据
 export const BannerData = fetch(API + '/banner');
 //获取推荐歌单数据

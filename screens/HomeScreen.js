@@ -14,6 +14,7 @@ import Scenario from '../componets/Scenario';
 import Style from '../componets/Style';
 import SongList from '../componets/SongList';
 import {connect} from 'react-redux';
+
 // 请求数据接口
 import {
   BannerData,
@@ -21,6 +22,13 @@ import {
   ScenarioData,
   Electronic,
 } from '../componets/Fetch';
+
+function DateTime() {
+  const date = new Date();
+  let day = date.getDate();
+  return {day};
+}
+let dateT = DateTime();
 // 写完登录后需要重新请求推荐歌单和歌曲
 function mapStateToProps(state) {
   return {
@@ -150,7 +158,7 @@ class HomeScreen extends Component {
                 onPress={() => {
                   this.props.navigation.navigate(item.title);
                 }}>
-                <Menu title={item.title} icon={item.icon} />
+                <Menu title={item.title} icon={item.icon} day={item.day} />
               </TouchableOpacity>
             ))}
           </MenuCover>
@@ -161,6 +169,7 @@ class HomeScreen extends Component {
             data={this.props.RecommendedData}
             navigation={this.props.navigation}
             name={'歌单'}
+            DateTime={dateT}
           />
           {/* 电音推荐音乐 */}
           <Style
@@ -190,7 +199,10 @@ class HomeScreen extends Component {
     );
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomeScreen);
 const RootView = styled.View`
   flex: 1;
   padding: 50px 0 0;
@@ -214,6 +226,7 @@ const data = [
   {
     icon: 'ios-calendar',
     title: '每日推荐',
+    day: dateT.day,
   },
   {
     icon: 'ios-musical-notes',

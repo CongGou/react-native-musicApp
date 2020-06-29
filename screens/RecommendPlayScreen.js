@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, Text, YellowBox} from 'react-native';
+import {ScrollView, Text, YellowBox, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components';
 import SongListTopChild from '../componets/ChildComponents/SongListTopChild';
@@ -7,6 +7,14 @@ import HeaderTop from '../componets/ChildComponents/Header';
 import {connect} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
+const ScreenHeight = Dimensions.get('window').height - 310;
+function DateTime() {
+  const date = new Date();
+  let day = date.getDate();
+  let Month = date.getMonth() + 1;
+  return {day, Month};
+}
+let dateT = DateTime();
 const mapStateToProps = state => {
   return {
     RecommendedScreenData: state.RecommendedScreenData,
@@ -34,7 +42,7 @@ class RecommendPlayScreen extends Component {
   }
   componentDidMount() {
     const id = this.props.route.params.id;
-    fetch(`http://guohaucong.top:8800/playlist/detail?id=${id}`)
+    fetch(`http://localhost:4000/playlist/detail?id=${id}`)
       .then(res => res.json())
       .then(res => {
         // console.log(res.playlist.coverImgUrl);
@@ -59,8 +67,10 @@ class RecommendPlayScreen extends Component {
           />
           <TopDate>
             <DateCover>
-              <Left>19</Left>
-              <Right>/ 02</Right>
+              <Left>{dateT.day}</Left>
+              <Right>
+                / {dateT.Month > 10 ? dateT.Month : '0' + dateT.Month}
+              </Right>
             </DateCover>
             <Subtitle>
               <Text style={{color: 'black', letterSpacing: 2, fontSize: 15}}>
@@ -96,7 +106,10 @@ class RecommendPlayScreen extends Component {
   }
   _keyExtractor = (item, index) => item.id;
 }
-export default connect(mapStateToProps, mapDispatchProps)(RecommendPlayScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchProps,
+)(RecommendPlayScreen);
 
 const Contsiner = styled.View`
   width: 100%;
@@ -109,7 +122,7 @@ const Cover = styled.View`
 `;
 const Image = styled.Image`
   width: 414px;
-  height: 240px;
+  height: 250px;
   z-index: -1;
 `;
 const TopDate = styled.View`
@@ -161,6 +174,6 @@ const PlayText = styled.Text`
 `;
 const MusicCover = styled.View`
   width: 100%;
-  height: 502px;
+  height: ${ScreenHeight};
   background: white;
 `;

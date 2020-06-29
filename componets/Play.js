@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {
-  View,
-  Text,
   TouchableOpacity,
   YellowBox,
   ScrollView,
   Dimensions,
+  Animated,
   Slider,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -51,13 +50,13 @@ class Play extends Component {
   componentDidMount() {
     const id = this.props.route.params.id;
     // 获取歌词
-    fetch(`http://guohaucong.top:8800/lyric?id=${id}`)
+    fetch(`http://localhost:4000/lyric?id=${id}`)
       .then(res => res.json())
       .then(res => {
         this.props.getLyricData(res.lrc.lyric);
       });
     //获取音乐url
-    fetch(`http://guohaucong.top:8800/song/url?id=${id}`)
+    fetch(`http://localhost:4000/song/url?id=${id}`)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -108,7 +107,7 @@ class Play extends Component {
     return min + ':' + second;
   };
   onEnd = () => {
-    console.log(1);
+    // console.log(1);
     this.setState({
       isPlay: !this.state.isPlay,
       playTime: 0.0,
@@ -152,8 +151,8 @@ class Play extends Component {
               paddingTop: PlayScreenH,
               paddingLeft: PlayScreenW,
             }}>
-            <Cover>
-              <Disc source={require('../componets/image/coverall.png')}></Disc>
+            <Cover style={{transform: [{rotateZ: '360deg'}]}}>
+              <Disc source={require('../componets/image/coverall.png')} />
               <Image resizeMode={'cover'} source={{uri: backgroundImg}} />
             </Cover>
           </TouchableOpacity>
@@ -206,7 +205,8 @@ class Play extends Component {
                   style={{
                     display: this.state.isPlay ? 'flex' : 'none',
                     marginLeft: 3,
-                  }}></Icon>
+                  }}
+                />
                 <Icon
                   name="ios-play"
                   color={'white'}
@@ -214,7 +214,8 @@ class Play extends Component {
                   style={{
                     display: this.state.isPlay ? 'none' : 'flex',
                     marginLeft: 5,
-                  }}></Icon>
+                  }}
+                />
               </PlayBotton>
             </TouchableOpacity>
             <TouchableOpacity>
@@ -244,7 +245,10 @@ class Play extends Component {
     );
   }
 }
-export default connect(mapStateToProps, mapDispatchProps)(Play);
+export default connect(
+  mapStateToProps,
+  mapDispatchProps,
+)(Play);
 const PlayView = styled.View`
   position: relative;
   flex: 1;
@@ -316,7 +320,7 @@ const BottonCover = styled.View`
   height: 105px;
   padding: 0 15px;
   position: absolute;
-  bottom: 0;
+  bottom: 60px;
 `;
 const ProgressBar = styled.View`
   flex-direction: row;

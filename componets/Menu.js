@@ -9,6 +9,7 @@ const Menu = props => {
           <Icon name={props.icon} size={30} color={'white'} />
         </IconBox>
         <Title>{props.title}</Title>
+        <Date>{props.day}</Date>
       </Cover>
     </Container>
   );
@@ -19,6 +20,7 @@ const Container = styled.View`
   height: 100%;
 `;
 const Cover = styled.View`
+  position: relative;
   height: 75px;
 `;
 const IconBox = styled.View`
@@ -32,4 +34,11 @@ const Title = styled.Text`
   margin-top: 5px;
   text-align: center;
   color: #666261;
+`;
+const Date = styled.Text`
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: white;
+  font-weight: bold;
 `;

@@ -14,7 +14,7 @@ class PlayListScreen extends Component {
     ],
   };
   componentDidMount() {
-    fetch('http://guohaucong.top:8800/toplist/detail')
+    fetch('http://localhost:4000/toplist/detail')
       .then(res => res.json())
       .then(res => {
         this.setState({
